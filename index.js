@@ -63,7 +63,7 @@ const streamSignedMedia = async (req, res, next, folderId) => {
     } 
     else if (!req.query["Signature"] || !req.query["Key-Pair-Id"]) { res.status(401).type('application/xml').send(xmlMissingKeyPair) }
     else { res.status(404).type('application/xml').send(xmlNotFound) }
-  } catch (err) { console.log(err); res.status(404).type('application/xml').send(xmlNotFound) }
+  } catch { res.status(404).type('application/xml').send(xmlNotFound) }
 }
 app.get("/:nameMedia", async (req, res, next) => {
   await streamSignedMedia(req, res, next)
@@ -76,7 +76,7 @@ app.post("/signurl", async (req, res, next) => {
   try {
     const signedUrl = await generateSignedUrl(req.body.url)
     res.status(200).send(signedUrl)
-  } catch (err) { console.log(err); res.status(403).send("error!") }
+  } catch { res.status(403).send("error!") }
 })
 
 app.listen(3500, () => {
