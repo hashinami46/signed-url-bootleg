@@ -76,7 +76,7 @@ app.post("/signurl", async (req, res, next) => {
   try {
     const signedUrl = await generateSignedUrl(req.body.url)
     res.status(200).send(signedUrl)
-  } catch (err) { console.log(err); res.status(403).send("error!")
+  } catch (err) { console.log(err); res.status(403).send("error!") }
 })
 
 app.listen(3500, () => {
