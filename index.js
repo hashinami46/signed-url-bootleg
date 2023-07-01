@@ -71,11 +71,12 @@ app.get("/:nameMedia", async (req, res, next) => {
 
 // Generate Signed Url
 app.post("/signurl", async (req, res, next) => {
-  // Sample Url/req.body.url = http://localhost:3000/images.jpg
+  // Sample Url/req.body.url = http://localhost:3500/images.jpg
   // The data.file will be images.jpg
-  const url = req.body.url
-  const signedUrl = await generateSignedUrl(url)
-  res.send(signedUrl)
+  try {
+    const signedUrl = await generateSignedUrl(req.body.url)
+    res.status(200).send(signedUrl)
+  } catch (err) { console.log(err); res.status(403).send("error!")
 })
 
 app.listen(3500, () => {
